@@ -5,11 +5,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export PROJECT_ROOT="$DIR"
 export PYTHONPATH="$PROJECT_ROOT/models:$PYTHONPATH"
 
-# 更新系统包并安装必要的 Python 开发包
-apt-get update && apt-get install -y pybind11-dev || {
-    echo "安装 pybind11-dev 失败。"
-    exit 1
-}
 
 # 升级 pip 和安装 Python 依赖
 pip3 install --upgrade pip wheel || {
