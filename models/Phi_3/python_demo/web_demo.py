@@ -57,36 +57,36 @@ def gr_chat(history):
 
     model.answer_cur = ""
     model.answer_token = []
-    token_num = 0
 
     first_start = time.time()
     token = model.model.forward_first(tokens)
     first_end = time.time()
+    tok_num = 1
 
     history[-1][1] = ""
 
+    full_word_tokens = []
     while token not in  model.EOS and model.model.token_length < model.model.SEQLEN:
-
-        t_word = model.tokenizer.decode([token], skip_special_tokens=True)
-        # t_word = model.tokenizer.decode([token, token], skip_special_tokens=True)[len(t_word):]
-
-        if "�" in t_word:
-            token = model.model.forward_next()
-            token_num += 1
-            continue
-
-        model.answer_token += [token]
-
-        history[-1][1] += t_word
-        yield history
+        full_word_tokens.append(token)
+        word = model.tokenizer.decode(full_word_tokens,
+                                        skip_special_tokens=True)
+        if "�" not in word:
+            if len(full_word_tokens) == 1:
+                pre_word = word
+                word = model.tokenizer.decode([token, token], skip_special_tokens=True)[len(pre_word):]
+            history[-1][1] += word
+            yield history
+            model.answer_token += full_word_tokens
+            full_word_tokens = []
         token = model.model.forward_next()
-        token_num += 1
+        tok_num += 1
+
 
     next_end = time.time()
     first_duration = first_end - first_start
     next_duration = next_end - first_end
-    tps = token_num / next_duration
-
+    tps = tok_num / next_duration
+    
     print()
     print(f"FTL: {first_duration:.3f} s")
     print(f"TPS: {tps:.3f} token/s")
