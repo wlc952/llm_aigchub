@@ -5,13 +5,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export PROJECT_ROOT="$DIR"
 export PYTHONPATH="$PROJECT_ROOT/models:$PYTHONPATH"
 
+sudo apt-get update -y
+sudo apt-get install -y pybind11-dev
 
 # 升级 pip 和安装 Python 依赖
-pip3 install --upgrade pip wheel || {
-    echo "pip 升级失败。"
-    exit 1
-}
-pip3 install transformers_stream_generator einops tiktoken accelerate gradio transformers==4.45.2 pybind11[global] dfss gradio || {
+pip3 install --upgrade pip
+pip3 install wheel transformers_stream_generator einops tiktoken accelerate gradio transformers==4.45.2 pybind11[global] dfss gradio || {
     echo "Python 包安装失败。"
     exit 1
 }
