@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 import gradio as gr
-from pipeline import Qwen2
+from pipeline import Qwen2_5
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -20,7 +20,7 @@ parser.add_argument('--lib_path', type=str, default='', help='lib path by user')
 parser.add_argument('--port', type=int, default=8003, help='port')
 args = parser.parse_args()
 
-model = Qwen2(args)
+model = Qwen2_5(args)
 
 
 def gr_update_history():

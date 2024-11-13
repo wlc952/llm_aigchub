@@ -103,8 +103,8 @@ def launch(model_path, tokenizer_path, temperature, top_p, repeat_penalty, repea
 def get_model_type(model_path, tokenizer_path):
     if "phi3" in model_path.lower():
         if "phi3" not in tokenizer_path.lower():
-            tokenizer_path = "Phi_3/support/token_config"
-        return "Phi_3", tokenizer_path
+            tokenizer_path = "Phi3/support/token_config"
+        return "Phi3", tokenizer_path
     elif "qwen1.5" in model_path.lower():
         if "qwen1" not in tokenizer_path.lower():
             tokenizer_path = "Qwen1_5/token_config"
@@ -126,7 +126,7 @@ with gr.Blocks() as demo:
     )
     tokenizer_path = gr.Dropdown(
         label="Tokenizer",
-        choices=["Phi_3/support/token_config", "Qwen1_5/token_config", "Qwen2_5/support/token_config"],
+        choices=["Phi3/support/token_config", "Qwen1_5/token_config", "Qwen2_5/support/token_config"],
         value="Qwen1_5/token_config"
     )
     temperature = gr.Slider(label="Temperature", minimum=0.0, maximum=1.0, value=1.0)
