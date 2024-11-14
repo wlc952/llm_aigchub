@@ -165,11 +165,12 @@ void Qwen2_5::init(const std::vector<int> &devices, std::string model_path) {
   // load bmodel by file
   printf("Model[%s] loading ....\n", model_path.c_str());
   bool ret = false;
-  if (!lib_path.empty()) {
-    ret = bmrt_load_bmodel_with_decrypt(p_bmrt, model_path.c_str(), decrypt_func_);
-  } else {
-    ret = bmrt_load_bmodel(p_bmrt, model_path.c_str());
-  }
+  // if (!lib_path.empty()) {
+  //   ret = bmrt_load_bmodel_with_decrypt(p_bmrt, model_path.c_str(), decrypt_func_);
+  // } else {
+  //   ret = bmrt_load_bmodel(p_bmrt, model_path.c_str());
+  // }
+  ret = bmrt_load_bmodel(p_bmrt, model_path.c_str());
   assert(true == ret);
   printf("Done!\n");
 
