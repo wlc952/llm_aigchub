@@ -1,5 +1,5 @@
 import argparse
-
+import models.Phi3.python_demo.chat as chat_Phi3
 import time
 from transformers import AutoTokenizer
 
@@ -29,19 +29,15 @@ class Phi3():
 
 
     def load_model(self, args):
-        if args.decode_mode == "basic":
-            import chat
-            self.model = chat.Phi3()
-            self.model.init(self.devices, args.model_path)
-            self.model.temperature = args.temperature
-            self.model.top_p = args.top_p
-            self.model.repeat_penalty = args.repeat_penalty
-            self.model.repeat_last_n = args.repeat_last_n
-            self.model.max_new_tokens = args.max_new_tokens
-            self.model.generation_mode = args.generation_mode
-            self.model.prompt_mode = args.prompt_mode
-        else:
-            raise ValueError("decode mode: {} is illegal!".format(args.decode_mode))
+        self.model = chat_Phi3.Phi3()
+        self.model.init(self.devices, args.model_path)
+        self.model.temperature = args.temperature
+        self.model.top_p = args.top_p
+        self.model.repeat_penalty = args.repeat_penalty
+        self.model.repeat_last_n = args.repeat_last_n
+        self.model.max_new_tokens = args.max_new_tokens
+        self.model.generation_mode = args.generation_mode
+        self.model.prompt_mode = args.prompt_mode
         
         self.SEQLEN = self.model.SEQLEN
 

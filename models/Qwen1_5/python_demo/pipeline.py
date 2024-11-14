@@ -1,5 +1,5 @@
 import argparse
-
+import models.Qwen1_5.python_demo.chat as chat_Qwen1_5
 import time
 from transformers import AutoTokenizer
 
@@ -28,25 +28,16 @@ class Qwen1_5():
         self.load_model(args)
 
     def load_model(self, args):
-        if len(self.devices) > 1:
-            import chat_parallel
-            self.model = chat_parallel.Qwen()
-            self.model.init(
-                self.devices,
-                self.tokenizer.im_end_id,
-                args.model_path
-            )
-        else:
-            import chat
-            self.model = chat.Qwen()
-            self.model.init(self.devices, args.model_path)
-            self.model.temperature = args.temperature
-            self.model.top_p = args.top_p
-            self.model.repeat_penalty = args.repeat_penalty
-            self.model.repeat_last_n = args.repeat_last_n
-            self.model.max_new_tokens = args.max_new_tokens
-            self.model.generation_mode = args.generation_mode
-            self.model.prompt_mode = args.prompt_mode
+        self.model = chat_Qwen1_5.Qwen1_5()
+        self.model.init(self.devices, args.model_path)
+        self.model.temperature = args.temperature
+        self.model.top_p = args.top_p
+        self.model.repeat_penalty = args.repeat_penalty
+        self.model.repeat_last_n = args.repeat_last_n
+        self.model.max_new_tokens = args.max_new_tokens
+        self.model.generation_mode = args.generation_mode
+        self.model.prompt_mode = args.prompt_mode
+
         self.SEQLEN = self.model.SEQLEN
 
 

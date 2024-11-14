@@ -5,7 +5,7 @@ from pipeline import Qwen2_5
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-m', '--model_path', type=str,  default="/data/llm/LLM-TPU/bmodels/qwen2.5-7b_int4_seq512_1dev.bmodel", help='path to the bmodel file')
+parser.add_argument('-m', '--model_path', type=str,  default="../../../bmodels/qwen2.5-7b_int4_seq512_1dev.bmodel", help='path to the bmodel file')
 parser.add_argument('-t', '--tokenizer_path', type=str, default="/data/llm/LLM-TPU/models/Qwen2_5/support/token_config", help='path to the tokenizer file')
 parser.add_argument('-d', '--devid', type=str, default='0', help='device ID to use')
 parser.add_argument('--temperature', type=float, default=1.0, help='temperature scaling factor for the likelihood distribution')
@@ -17,7 +17,7 @@ parser.add_argument('--generation_mode', type=str, choices=["greedy", "penalty_s
 parser.add_argument('--prompt_mode', type=str, choices=["prompted", "unprompted"], default="prompted", help='use prompt format or original input')
 parser.add_argument('--enable_history', action='store_true', help="if set, enables storing of history memory")
 parser.add_argument('--lib_path', type=str, default='', help='lib path by user')
-parser.add_argument('--port', type=int, default=8003, help='port')
+parser.add_argument('--port', type=int, default=5000, help='port')
 args = parser.parse_args()
 
 model = Qwen2_5(args)

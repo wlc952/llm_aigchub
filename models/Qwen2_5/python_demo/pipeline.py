@@ -1,6 +1,5 @@
 import argparse
-
-import chat
+import models.Qwen2_5.python_demo.chat as chat_Qwen2_5
 import time
 from transformers import AutoTokenizer
 
@@ -25,7 +24,7 @@ class Qwen2_5():
         self.EOS = self.tokenizer.eos_token_id
         self.enable_history = args.enable_history
 
-        self.model = chat.Qwen()
+        self.model = chat_Qwen2_5.Qwen2_5()
         self.init_params(args)
         self.model.init_decrypt()
         self.load_model(args.model_path)
