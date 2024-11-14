@@ -301,36 +301,13 @@ DECL_EXPORT bool bmrt_load_bmodel_data_with_mem(void* p_bmrt, const void * bmode
  * @param   [in]   bmodel_path   Bmodel file directory
  * @param   [in]   update_path   Update bmodel by the binary file directory
  * @param   [in]   net_idx       Update specified net by idx
- * @param   [in]   mem_idx       Update specified mem by idx
  * @param   [in]   weight_idx    Update specified weight by loc idx
- * @param   [in]   weight_count  weight count
  * @param   [in]   f             Function pointer to decrypt func
  *
  * @retval true    Update bmodel weight sucess.
  * @retval false   Update bmodel weight failed.
  */
-DECL_EXPORT bool bmrt_update_bmodel_weight_with_decrypt(void* p_bmrt, const char* bmodel_path, const char* update_path, const char* net_idx, const char* mem_idx, const char** weight_idx, int weight_count, decrypt_func f);
-
-/**
- * @name    bmrt_empty_bmodel_weight_with_decrypt
- * @brief   To empty the weight of bmodel
- * @ingroup bmruntime
- *
- * This API is to empty the weight of bmodel.
- * After loading bmodel, we can empty the weight of bmodel.
- *
- * @param   [in]   p_bmrt        Bmruntime that had been created
- * @param   [in]   bmodel_path   Bmodel file directory
- * @param   [in]   net_idx       Empty specified net by idx
- * @param   [in]   mem_idx       Empty specified mem by idx
- * @param   [in]   weight_idx    Empty specified weight by loc idx
- * @param   [in]   weight_count  weight count
- * @param   [in]   f             Function pointer to decrypt func
- *
- * @retval true    Empty bmodel weight sucess.
- * @retval false   Empty bmodel weight failed.
- */
-DECL_EXPORT bool bmrt_empty_bmodel_weight_with_decrypt(void* p_bmrt, const char* bmodel_path, const char* net_idx, const char* mem_idx, const char** weight_idx, int weight_count, decrypt_func f);
+DECL_EXPORT bool bmrt_update_bmodel_weight_with_decrypt(void* p_bmrt, const char* bmodel_path, const char* update_path, const char* net_idx, const char* weight_idx, decrypt_func f);
 
 /**
  * @name    bmrt_show_neuron_network
@@ -387,18 +364,6 @@ DECL_EXPORT const char *bmrt_get_network_name(void* p_bmrt, int index);
  * @retval  bm_net_info_t*        Pointer to net info, needn't free by user; if net name not found, will return NULL.
  */
 DECL_EXPORT const bm_net_info_t* bmrt_get_network_info(void* p_bmrt, const char* net_name);
-
-/**
- * @name    bmrt_get_stage_size
- * @brief   To get network stage size
- * @ingroup bmruntime
- *
- * @param [in]     p_bmrt         Bmruntime that had been created
- * @param [in]     net_name       Network name
- *
- * @retval  int                   Stage size; if net name not found, will return -1.
- */
-DECL_EXPORT int bmrt_get_stage_size(void* p_bmrt, const char* net_name);
 
 /**
  * @name    bmrt_get_stage_index
