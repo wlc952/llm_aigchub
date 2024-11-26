@@ -29,8 +29,11 @@ class MiniCPM3():
 
 
     def load_model(self, args):
-        import chat
-        self.model = chat.MiniCPM3()
+        try:
+            import repo.llm_tpu.llm_models.Phi3.python_demo.chat as chat_Phi3
+        except:
+            import chat as chat_Phi3
+        self.model = chat_Phi3.MiniCPM3()
         self.model.init(self.devices, args.model_path)
         self.model.temperature = args.temperature
         self.model.top_p = args.top_p

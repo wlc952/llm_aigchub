@@ -1,5 +1,8 @@
 import argparse
-import models.Qwen1_5.python_demo.chat as chat_Qwen1_5
+try :
+    import import repo.llm_tpu.llm_models.Qwen1_5.python_demo.chat as chat_Qwen1_5
+except :
+    import chat as chat_Qwen1_5
 import time
 from transformers import AutoTokenizer
 

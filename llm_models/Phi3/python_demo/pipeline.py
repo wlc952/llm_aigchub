@@ -1,5 +1,8 @@
 import argparse
-import models.Phi3.python_demo.chat as chat_Phi3
+try:
+    import repo.llm_tpu.llm_models.Phi3.python_demo.chat as chat_Phi3
+except:
+    import chat as chat_Phi3
 import time
 from transformers import AutoTokenizer
 

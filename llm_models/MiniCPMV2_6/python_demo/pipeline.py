@@ -5,7 +5,10 @@ from PIL import Image
 import torchvision.transforms as T
 from transformers import AutoTokenizer
 from torchvision.transforms.functional import InterpolationMode
-import chat
+try:
+    import repo.llm_tpu.llm_models.MiniCPMV2_6.python_demo.chat as chat_MiniCPMV2_6
+except:
+    import chat as chat_MiniCPMV2_6
 import os
 
 # Preprocess the images
@@ -37,10 +40,13 @@ class MiniCPMV2_6():
         # devid
         self.device = args.devid
 
+        if not isinstance(self.device, int):
+            self.device = int(self.device)
+
         # load tokenizer
-        print("Load " + args.tokenizer + " ...")
+        print("Load " + args.tokenizer_path + " ...")
         self.tokenizer = AutoTokenizer.from_pretrained(
-            args.tokenizer, trust_remote_code=True
+            args.tokenizer_path, trust_remote_code=True
         )
         self.tokenizer.decode([0])  # warm up
 
@@ -49,7 +55,7 @@ class MiniCPMV2_6():
         self.image_ids = [0] * 64
 
         # load model
-        self.model = chat.MiniCPMV()
+        self.model = chat_MiniCPMV2_6.MiniCPMV()
         self.model.init(self.device, args.model_path)
         self.SEQLEN = self.model.SEQLEN
         self.ID_EOS = self.tokenizer.eos_token_id
@@ -131,7 +137,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--model_path', type=str,
                         required=True, help='path to the bmodel file')
-    parser.add_argument('-t', '--tokenizer', type=str,
+    parser.add_argument('-t', '--tokenizer_path', type=str,
                         default="../support/token_config", help='path to the tokenizer file')
     parser.add_argument('-d', '--devid', type=int,
                         default=0, help='device ID to use')
